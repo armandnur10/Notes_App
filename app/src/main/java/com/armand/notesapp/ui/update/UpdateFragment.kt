@@ -55,8 +55,8 @@ class UpdateFragment : Fragment() {
         inflater.inflate(R.menu.menu_save, menu)
         val action = menu.findItem(R.id.menu_save)
         action.actionView.findViewById<AppCompatImageButton>(R.id.btn_save).setOnClickListener {
-            findNavController().navigate(R.id.action_updateFragment_to_detailFragment)
-            Toast.makeText(context, "Note has been Update", Toast.LENGTH_SHORT).show()
+//            findNavController().navigate(R.id.action_updateFragment_to_detailFragment)
+//            Toast.makeText(context, "Note has been Update", Toast.LENGTH_SHORT).show()
             updateNote()
         }
     }

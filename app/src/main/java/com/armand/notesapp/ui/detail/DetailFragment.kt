@@ -39,8 +39,8 @@ class DetailFragment : Fragment() {
 
         binding.safeArgs = navArgs
 
-        val navController = findNavController()
-        val appBarConfig = AppBarConfiguration(navController.graph)
+//        val navController = findNavController()
+//        val appBarConfig = AppBarConfiguration(navController.graph)
 
         binding.toolbarDetail.setActionBar(requireActivity())
     }

@@ -10,10 +10,18 @@
         android:label="Notes">
         <action
             android:id="@+id/action_homeFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left" />
         <action
             android:id="@+id/action_homeFragment_to_addFragment"
-            app:destination="@id/addFragment" />
+            app:destination="@id/addFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
@@ -21,7 +29,11 @@
         android:label="@string/Add">
         <action
             android:id="@+id/action_addFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -32,7 +44,11 @@
             app:destination="@id/updateFragment" />
         <action
             android:id="@+id/action_detailFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="currentItem"
             app:argType="com.armand.notesapp.data.entity.Notes" />
@@ -43,7 +59,9 @@
         android:label="@string/update" >
         <action
             android:id="@+id/action_updateFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment"
+            app:popUpTo="@id/detailFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="currentItem"
             app:argType="com.armand.notesapp.data.entity.Notes" />

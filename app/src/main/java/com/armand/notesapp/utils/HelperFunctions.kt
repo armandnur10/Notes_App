@@ -6,7 +6,9 @@ import android.view.ViewParent
 import android.widget.AdapterView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.MutableLiveData
 import com.armand.notesapp.R
+import com.armand.notesapp.data.entity.Notes
 import com.armand.notesapp.data.entity.Priority
 import java.text.FieldPosition
 
@@ -48,5 +50,11 @@ object HelperFunctions {
             expectedPriority?.get(2) -> Priority.LOW
             else -> Priority.HIGH
         }
+    }
+
+    val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(true)
+
+    fun checkIsDataEmpty(data: List<Notes>) {
+        emptyDatabase.value = data.isEmpty()
     }
 }

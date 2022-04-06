@@ -19,6 +19,8 @@ import com.armand.notesapp.data.entity.Notes
 import com.armand.notesapp.databinding.FragmentHomeBinding
 import com.armand.notesapp.ui.NotesViewModel
 import com.armand.notesapp.utils.ExtensionFunctions.setActionBar
+import com.armand.notesapp.utils.HelperFunctions
+import com.armand.notesapp.utils.HelperFunctions.checkIsDataEmpty
 
 
 class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
@@ -47,17 +49,16 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.mHelperFunctions = HelperFunctions
+
         setHasOptionsMenu(true)
 
         binding.apply {
             toolbarHome.setActionBar(requireActivity())
-
             fabAdd.setOnClickListener{
                 findNavController().navigate(R.id.action_homeFragment_to_addFragment)
             }
         }
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
         setupRecyclerView()
 
     }
@@ -75,17 +76,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
 
     }
 
-    private fun checkIsDataEmpty(data: List<Notes>) {
-        binding.apply {
-            if (data.isEmpty()) {
-                imgNoData.visibility = View.VISIBLE
-                rvhome.visibility = View.INVISIBLE
-            } else{
-                imgNoData.visibility = View.INVISIBLE
-                rvhome.visibility = View.VISIBLE
-            }
-        }
-    }
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {1
         inflater.inflate(R.menu.menu_home, menu)

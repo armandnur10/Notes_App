@@ -7,9 +7,6 @@
         <variable
             name="safeArgs"
             type="com.armand.notesapp.ui.update.UpdateFragmentArgs" />
-        <variable
-            name="mNotes"
-            type="com.armand.notesapp.ui.update.UpdateFragmentArgs" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

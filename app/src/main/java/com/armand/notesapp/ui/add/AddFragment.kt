@@ -27,7 +27,8 @@ class AddFragment : Fragment() {
     private var _binding: FragmentAddBinding? = null
     private val  binding get() = _binding as FragmentAddBinding
     private var _addViewModel: NotesViewModel? = null
-    private val addViewModel by viewModels<NotesViewModel>()
+//    private val addViewModel by viewModels<NotesViewModel>()
+    private val addViewModel get() = _addViewModel as NotesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,9 +46,6 @@ class AddFragment : Fragment() {
 
         _addViewModel = activity?.let { obtainViewModel(it) }
 
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-
         binding.toolbarAdd.setActionBar(requireActivity())
 
         binding.spinnerPriorities.onItemSelectedListener = HelperFunctions.spinnerListener(requireContext(), binding.priorityIndicator)
@@ -63,7 +61,7 @@ class AddFragment : Fragment() {
         inflater.inflate(R.menu.menu_save, menu)
         val action = menu.findItem(R.id.menu_save)
         action.actionView.findViewById<AppCompatImageButton>(R.id.btn_save).setOnClickListener {
-
+            insertNote()
         }
     }
 
