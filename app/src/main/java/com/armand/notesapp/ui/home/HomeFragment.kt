@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -21,6 +22,7 @@ import com.armand.notesapp.ui.NotesViewModel
 import com.armand.notesapp.utils.ExtensionFunctions.setActionBar
 import com.armand.notesapp.utils.HelperFunctions
 import com.armand.notesapp.utils.HelperFunctions.checkIsDataEmpty
+import com.google.android.material.snackbar.Snackbar
 
 
 class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
@@ -66,6 +68,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.rvhome.apply{
             homeViewModel.getAllData().observe(viewLifecycleOwner) {
                 checkIsDataEmpty(it)
+                showEmptyDataLayout(it)
                 homeAdapter.setData(it)
                 _currentData = it
             }
@@ -76,6 +79,19 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
 
     }
 
+    private fun showEmptyDataLayout(data: List<Notes>) {
+        when (data.isEmpty()) {
+            true -> {
+                binding.rvhome.visibility = View.INVISIBLE
+                binding.imgNoData.visibility = View.VISIBLE
+            }
+            else -> {
+                binding.rvhome.visibility = View.VISIBLE
+                binding.imgNoData.visibility = View.INVISIBLE
+
+            }
+        }
+    }
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {1
@@ -162,10 +178,23 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val deletedItem = homeAdapter.listNotes[viewHolder.adapterPosition]
                 homeViewModel.deleteNote(deletedItem)
+                restoredData(viewHolder.itemView, deletedItem)
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeToDelete)
         itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
+
+    private fun restoredData(view: View, deletedItem: Notes) {
+    val snackBar = Snackbar.make(
+        view, "Deleted: ${deletedItem.title}", Snackbar.LENGTH_LONG
+    )
+        snackBar.setTextColor(ContextCompat.getColor(view.context, R.color.black))
+        snackBar.setAction("Undo") {
+            homeViewModel.insertData(deletedItem)
+        }
+        snackBar.setActionTextColor(ContextCompat.getColor(view.context, R.color.black))
+        snackBar.show()
     }
 
     override fun onDestroyView() {

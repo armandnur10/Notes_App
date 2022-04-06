@@ -18,4 +18,6 @@
     <string name="note">Note</string>
     <string name="update">Update</string>
     <string name="sort_by">sort by</string>
+    <string name="mynotes">My Notes</string>
+    <string name="notes">Notes</string>
 </resources>
